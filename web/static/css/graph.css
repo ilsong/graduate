@@ -1,0 +1,17 @@
+@media screen and (min-width: 1319px) {
+	#graph {
+		right: calc(33px + (100% - 1317px)/2);
+	}
+}
+
+@media screen and (min-width: 1021px) and (max-width: 1318px) {
+	#graph {
+		right: 33px;
+	}
+}
+
+@media screen and (max-width: 1020px){
+	#graph {
+		visibility: hidden;
+	}
+}

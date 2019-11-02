@@ -4,31 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="{{ url_for('static', filename = 'css/index.css') }}">
+	<link rel="stylesheet" media="screen" href="{{ url_for('static', filename = 'css/graph.css') }}">
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="{{ url_for('static', filename = 'js/jsnetworkx.js') }}"></script>
     <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
      <script type="text/javascript">
-        $(document).ready(() => {
-            var G = new jsnx.Graph();
+		$(document).ready(() => {
+			$("#btn_control").click(() => {
+				$("#graph").toggle("slow", () => {
+					var text = $("#btn_control").text();
+					$("#btn_control").text(text == "Show" ? "Hide" : "Show")
+				});
+			});
 
-            G.addWeightedEdgesFrom([[2,3,10]]);
-            G.addStar([3,4,5,6], {weight: 5}); 
-            G.addStar([2,1,0,-1], {weight: 3});
+		    var G = new jsnx.Graph();
 
-            jsnx.draw(G, {
-                element: '#canvas',  
-                weighted: true,
-                edgeStyle: {
-                    'stroke-width': 10
-                }
-            });
-        });
+		    G.addWeightedEdgesFrom([[2,3,10]]);
+		    G.addStar([3,4,5,6], {weight: 5}); 
+		    G.addStar([2,1,0,-1], {weight: 3});
+
+		    jsnx.draw(G, {
+		        element: '#graph',  
+		        weighted: true,
+		        edgeStyle: {
+		            'stroke-width': 10
+		        }
+		    });
+		});
         </script>
     <title>Graduate</title>
 </head>
 
 <body>
-    <div id="canvas" width="300" height="300">
-    </div>
+	<iframe id="mainframe" src="http://www.namu.wiki"></iframe>
+	<div id="graph"></div>
+	<button id="btn_control">Hide</button>
 </body>
 </html>
