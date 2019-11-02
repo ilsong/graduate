@@ -1,55 +1,34 @@
 <!DOCTYPE html>
 <html>
-<script src="https://d3js.org/d3.v3.min.js"></script>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Graduate</title>
-
-</head>
-
-
-<body>
-  <div class="row">
-    <div class="col-3 movie-left">
-    </div>
-    <div class="col-6">
-      <div class="title">
-        <h1 style="font-size:100px"> dd
-          <hr>
-        </h1>hi
-        <canvas id="canvas" width="300" height="300">
-
-          <script src="{{ url_for('static', filename = 'jsnetworkx.js') }}"></script>
-          <script type="text/javascript">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="{{ url_for('static', filename = 'js/jsnetworkx.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'js/jquery.min.js') }}"></script>
+     <script type="text/javascript">
+        $(document).ready(() => {
             var G = new jsnx.Graph();
 
             G.addWeightedEdgesFrom([[2,3,10]]);
-            G.addStar([3,4,5,6], {weight: 5});
+            G.addStar([3,4,5,6], {weight: 5}); 
             G.addStar([2,1,0,-1], {weight: 3});
-            console.log(G.edges())
+
             jsnx.draw(G, {
-              element: '#canvas',
-              weighted: true,
-              edgeStyle: {
-                  'stroke-width': 10
-              }
+                element: '#canvas',  
+                weighted: true,
+                edgeStyle: {
+                    'stroke-width': 10
+                }
             });
-          </script>
+        });
+        </script>
+    <title>Graduate</title>
+</head>
 
-        </canvas>
-      </div>
-      <br>
-
+<body>
+    <div id="canvas" width="300" height="300">
     </div>
-
-  </div>
-
-  </div>
-
-
-
 </body>
-
 </html>
