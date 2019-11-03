@@ -18,27 +18,81 @@
 				});
 			});
 
-		    // var G = new jsnx.Graph();
-        //
-		    // G.addWeightedEdgesFrom([[2,3,10]]);
-		    // G.addStar([3,4,5,6], {weight: 5});
-		    // G.addStar([2,1,0,-1], {weight: 3});
-        //
-		    // jsnx.draw(G, {
-		    //     element: '#graph',
-		    //     weighted: true,
-		    //     edgeStyle: {
-		    //         'stroke-width': 5
-		    //     }
-		    // });
+
 			$("#btn_submit").click(function(){
 				var form = $("#myform");
 				var url = form.attr("action");
 				var data = form.serialize();
+        var query_str = $('#query_str').val()
+        $("#mainframe").attr('src',"http://www.namu.wiki/w/"+query_str)
 
 				$.post(url, data)
 				.done(function(data) {
-					alert(data);
+          console.log(data)
+          var pred_graph = new jsnx.Graph();
+          var succ_graph = new jsnx.Graph();
+          var pred_succ = data.split(', "/pred_succ/", ');
+          var pred = pred_succ[0].split(', "/nodes_edges/", ');
+          var succ = pred_succ[1].split(', "/nodes_edges/", ');
+          var pred_nodes = JSON.parse(pred[0] + "]");
+          var pred_edges = JSON.parse("[" + pred[1] + "]");
+          var succ_nodes = JSON.parse("[" + succ[0] + "]");
+          var succ_edges = JSON.parse("[" + succ[1]);
+          // G.addWeightedEdgesFrom([[2,3,10]]);
+          // G.addStar([3,4,5,6], {weight: 5});
+          // G.addStar([2,1,0,-1], {weight: 3});
+          pred_graph.addNodesFrom(pred_nodes);
+          pred_graph.addEdgesFrom(pred_edges);
+          succ_graph.addNodesFrom(succ_nodes);
+          succ_graph.addEdgesFrom(succ_edges);
+
+          var color = d3.scale.category20();
+          jsnx.draw(succ_graph, {
+              element: '#graph',
+              weighted: true,
+              withLabels: true,
+              labelStyle: {fill: 'black'},
+              layoutAttr: {
+                  charge: -120,
+                  linkDistance: 20
+              },
+              nodeAttr: {
+                  r: 2,
+                  title: function(d) { return d.label;}
+              },
+              nodeStyle: {
+                  fill: function(d) {
+                      return color(d.data.group);
+                  },
+                  stroke: 'none'
+              },
+              edgeStyle: {
+                  'stroke-width': 5
+              }
+          });
+          jsnx.draw(pred_graph, {
+              element: '#succ',
+              weighted: true,
+              withLabels: true,
+              labelStyle: {fill: 'black'},
+              layoutAttr: {
+                  charge: -120,
+                  linkDistance: 20
+              },
+              nodeAttr: {
+                  r: 2,
+                  title: function(d) { return d.label;}
+              },
+              nodeStyle: {
+                  fill: function(d) {
+                      return color(d.data.group);
+                  },
+                  stroke: 'none'
+              },
+              edgeStyle: {
+                  'stroke-width': 5
+              }
+          });
 				});
 			});
 		});
@@ -52,6 +106,7 @@
   </form>
     <input type="button" value="search" id="btn_submit">
   <br>
+	<div id="succ"></div>
 	<iframe id="mainframe" src="http://www.namu.wiki"></iframe>
 	<div id="graph"></div>
 	<button id="btn_control">Hide</button>

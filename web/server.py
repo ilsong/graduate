@@ -15,8 +15,34 @@ def home():
 @app.route('/query', methods = ['POST'])
 def get_graph():
     search_str = request.form.get('query_str')
-    result = {'predgraph': search_str+"1", 'succgraph': search_str+"2"}#get_subgraph(nx_digraph, search_str, pagerank, 6)
-    return json.dumps(result)
+
+    # test graph
+    test_pred = nx.path_graph(6)
+    test_succ = nx.star_graph(6)
+    result = {'predgraph': test_pred, 'succgraph': test_succ}
+
+    # real subgraph
+    # result = get_subgraph(nx_digraph, search_str, pagerank, 6)
+
+    # type cast: NodeView -> list
+    result_pred = list(result['predgraph'].nodes())
+    result_pred.append('/nodes_edges/')
+    result_pred += list(result['predgraph'].edges())
+    result_succ = list(result['succgraph'].nodes())
+    result_succ.append('/nodes_edges/')
+    result_succ += list(result['succgraph'].edges())
+
+    print(result_pred)
+    print(result_succ)
+
+    result_pred.append('/pred_succ/')
+    result = result_pred + result_succ
+    '''
+    ex) ["a","b","c", "/nodes_edges/" ,["a","b"],["b","c"], "/pred_succ/",
+            "d","e","f", "/nodes_edges/" ,["d","e"],["f","d"],  ]
+    '''
+
+    return json.dumps(result,ensure_ascii = False ).encode('utf-8')
 
 if __name__ == '__main__':
    app.run(debug = True)
