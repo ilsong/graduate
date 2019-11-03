@@ -18,25 +18,35 @@
 				});
 			});
 
-		    var G = new jsnx.Graph();
-
-		    G.addWeightedEdgesFrom([[2,3,10]]);
-		    G.addStar([3,4,5,6], {weight: 5});
-		    G.addStar([2,1,0,-1], {weight: 3});
-
-		    jsnx.draw(G, {
-		        element: '#graph',
-		        weighted: true,
-		        edgeStyle: {
-		            'stroke-width': 5
-		        }
-		    });
+		    // var G = new jsnx.Graph();
+        //
+		    // G.addWeightedEdgesFrom([[2,3,10]]);
+		    // G.addStar([3,4,5,6], {weight: 5});
+		    // G.addStar([2,1,0,-1], {weight: 3});
+        //
+		    // jsnx.draw(G, {
+		    //     element: '#graph',
+		    //     weighted: true,
+		    //     edgeStyle: {
+		    //         'stroke-width': 5
+		    //     }
+		    // });
+        $("#myform").submit(function(){
+          alert("submitted");
+          var q = $('#query_str').val()
+          $('#mainframe').attr('src',"https://namu.wiki/w/"+q);
+        })
 		});
         </script>
     <title>Graduate</title>
 </head>
 
 <body>
+  <form action="localhost:5000/query" method="post" id="myform">
+    <input type="text" id='query_str' name="query_str" value="">
+    <input type="submit" value="search">
+  </form>
+  <br>
 	<iframe id="mainframe" src="http://www.namu.wiki"></iframe>
 	<div id="graph"></div>
 	<button id="btn_control">Hide</button>
