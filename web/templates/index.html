@@ -31,21 +31,26 @@
 		    //         'stroke-width': 5
 		    //     }
 		    // });
-        $("#myform").submit(function(){
-          alert("submitted");
-          var q = $('#query_str').val()
-          $('#mainframe').attr('src',"https://namu.wiki/w/"+q);
-        })
+			$("#btn_submit").click(function(){
+				var form = $("#myform");
+				var url = form.attr("action");
+				var data = form.serialize();
+
+				$.post(url, data)
+				.done(function(data) {
+					alert(data);
+				});
+			});
 		});
         </script>
     <title>Graduate</title>
 </head>
 
 <body>
-  <form action="localhost:5000/query" method="post" id="myform">
+  <form action="/query" method="post" id="myform">
     <input type="text" id='query_str' name="query_str" value="">
-    <input type="submit" value="search">
   </form>
+    <input type="button" value="search" id="btn_submit">
   <br>
 	<iframe id="mainframe" src="http://www.namu.wiki"></iframe>
 	<div id="graph"></div>

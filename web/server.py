@@ -15,11 +15,7 @@ def home():
 @app.route('/query', methods = ['POST'])
 def get_graph():
     search_str = request.form.get('query_str')
-    # result = get_subgraph(nx_digraph, search_str, pagerank, 6)
-
-    # sample result:
-    result = nx.path_graph(8)
-
+    result = {'predgraph': search_str+"1", 'succgraph': search_str+"2"}#get_subgraph(nx_digraph, search_str, pagerank, 6)
     return json.dumps(result)
 
 if __name__ == '__main__':
