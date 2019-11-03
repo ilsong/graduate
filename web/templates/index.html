@@ -15,6 +15,7 @@
 				$("#graph").toggle("slow", () => {
 					var text = $("#btn_control").text();
 					$("#btn_control").text(text == "Show" ? "Hide" : "Show")
+					console.log();
 				});
 			});
 
@@ -37,7 +38,7 @@
 </head>
 
 <body>
-	<iframe id="mainframe" src="http://www.namu.wiki"></iframe>
+	<iframe id="mainframe" src="http://www.namu.wiki" onload="console.log(1);"></iframe>
 	<div id="graph"></div>
 	<button id="btn_control">Hide</button>
 </body>
