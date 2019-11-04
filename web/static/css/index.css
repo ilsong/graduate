@@ -9,7 +9,7 @@ iframe {
   border: 0;
 }
 
-button {
+#btn_control {
   position: absolute;
   background-color: #008275;
   opacity: .8;
@@ -34,4 +34,33 @@ button {
   height: 750px;
   top: 58px;
   background-color: white;
+}
+
+#myform {
+  display: inline-table;
+  width: 100%;
+}
+
+#query_str {
+  width: 199px;
+  margin: 0;
+  padding: 0;
+  padding: 4px 8px 4px 8px;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  height: 31px;
+  display: table-cell;
+}
+
+#btn_submit {
+  width: 20%;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: table-cell;
+  float: right;
+  height: 40px;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
 }

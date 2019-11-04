@@ -19,6 +19,13 @@
 				});
 			});
 
+			$("#query_str").keydown((e) => {
+				if(e.keyCode == 13) {
+					e.preventDefault();
+					$("#btn_submit").click();
+					$(this).focus();
+				}
+			});
 
 			$("#btn_submit").click(function(){
 				var form = $("#myform");
@@ -72,8 +79,8 @@
 	<iframe id="mainframe" src="http://www.namu.wiki"></iframe>
 	<div id="graph">
 		<form action="/query" method="post" id="myform">
-			<input type="text" id='query_str' name="query_str" value="">
-			<input type="button" value="search" id="btn_submit">
+			<input type="text" id="query_str" name="query_str" placeholder="Search Graph">
+			<input type="button" value="Go!" id="btn_submit">
 		</form>
 	</div>
 	<button id="btn_control">Hide</button>
